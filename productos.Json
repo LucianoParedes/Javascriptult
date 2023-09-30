@@ -1,0 +1,38 @@
+[
+{
+    "id": 1,
+    "nombre": "buscapina",
+    "precio": 10,
+    "descripcion": "producto para aliviar el malestar estomacal",
+    "cantidad": 1,
+    "img": "https://www.buscapina.com/dam/jcr:e826d6a1-9ba5-4cbb-bd5b-09c546228dd2/3_1_hero_desktop.png",
+    "alt": "buscapina duo"
+},
+{
+    "id": 2,
+    "nombre": "ibuprofeno",
+    "precio": 20,
+    "descripcion": "producto para aliviar el dolor",
+    "cantidad": 1,
+    "img": "https://www.actron.com.ar/sites/g/files/vrxlpx19316/files/2022-06/Mockup-Box-Actron400-B_min_0.png",
+    "alt": "ibuprofeno 400"
+},
+{
+    "id": 3,
+    "nombre": "pulmosan",
+    "precio": 30,
+    "descripcion": "producto para combatir el resfrio",
+    "cantidad": 1,
+    "img": "https://acdn.mitiendanube.com/stores/001/671/329/products/pulmosan1-d766d8cb56e37711d316241184138174-640-0.png",
+    "alt": "pulmosan"
+},
+{
+    "id": 4,
+    "nombre": "frenaler cort",
+    "precio": 40,
+    "descripcion": "producto para estados alergicos severos",
+    "cantidad": 1,
+    "img": "https://www.roemmers.com.ar/sites/default/files/F_000001119104.png",
+    "alt": "frenaler cort"
+}
+]

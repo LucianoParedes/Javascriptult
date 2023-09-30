@@ -63,63 +63,39 @@ class ProductoController {
     this.listaProductos = [];
   }
 
-
   agregar(producto) {
     if (producto instanceof Producto) {
       this.listaProductos.push(producto);
     }
   }
 
-  cargarProductos() {
-    this.agregar(
-      new Producto(
-        1,
-        "buscapina",
-        10,
-        "producto para aliviar el malestar estomacal",
-        "https://www.buscapina.com/dam/jcr:e826d6a1-9ba5-4cbb-bd5b-09c546228dd2/3_1_hero_desktop.png",
-        "buscapina duo"
-      )
-    );
-    this.agregar(
-      new Producto(
-        2,
-        "ibuprofeno",
-        20,
-        "producto para aliviar el dolor",
-        "https://www.actron.com.ar/sites/g/files/vrxlpx19316/files/2022-06/Mockup-Box-Actron400-B_min_0.png",
-        "ibuprofeno 400"
-      )
-    );
-    this.agregar(
-      new Producto(
-        3,
-        "pulmosan",
-        30,
-        "producto para combatir el resfrio",
-        "https://acdn.mitiendanube.com/stores/001/671/329/products/pulmosan1-d766d8cb56e37711d316241184138174-640-0.png",
-        "pulmosan"
-      )
-    );
-    this.agregar(
-      new Producto(
-        4,
-        "frenaler cort",
-        40,
-        "producto para estados alergicos severos",
-        "https://www.roemmers.com.ar/sites/default/files/F_000001119104.png",
-        "frenaler cort"
-      )
-    );
+  async preparar_contenedor_productos() {
+    let listaProductosJSON = await fetch("productos.json");
+    let listaProductosJS = await listaProductosJSON.json();
+
+    listaProductosJS.forEach((producto) => {
+      let nuevoProducto = new Producto(
+        producto.id,
+        producto.nombre,
+        producto.precio,
+        producto.descripcion,
+        producto.img,
+        producto.alt,
+        producto.cantidad
+      );
+      this.agregar(nuevoProducto);
+    });
+
+    this.mostrarEnDOM();
   }
 
   mostrarToastify() {
     Toastify({
       text: "¡Producto añadido!",
       duration: 2000,
-      gravity: "bottom", // `top` or `bottom`
-      position: "right", // `left`, `center` or `right`
-      stopOnFocus: true, // Prevents dismissing of toast on hover
+      gravity: "bottom",
+      position: "right",
+      stopOnFocus: true,
       style: {
         background: "linear-gradient(to right, #00b09b, #96c93d)",
       },
@@ -254,16 +230,25 @@ class Carrito {
     const finalizar_compra = document.getElementById("finalizar_compra");
 
     finalizar_compra.addEventListener("click", () => {
-      localStorage.setItem(this.localStorageKey, "[]");
-      this.limpiarCarrito();
-      this.mostrarEnDOM();
+      if (this.listaCarrito.length > 0) {
+        localStorage.setItem(this.localStorageKey, "[]");
+        this.limpiarCarrito();
+        this.mostrarEnDOM();
 
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "¡Compra realizada con éxito!",
-        timer: 2000,
-      });
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "¡Compra realizada con éxito!",
+          timer: 2000,
+        });
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Necesitas añadir productos para poder realizar una compra",
+          timer: 2000,
+        });
+      }
     });
   }
 
@@ -287,7 +272,4 @@ carrito.recuperarStorage();
 carrito.mostrarEnDOM();
 carrito.eventoFinalizarCompra();
 
-CP.cargarProductos();
-CP.mostrarEnDOM();
-CP.eventoFiltro();
-
+CP.preparar_contenedor_productos();
