@@ -70,24 +70,16 @@ class ProductoController {
   }
 
   async preparar_contenedor_productos() {
-    let listaProductosJSON = await fetch("productos.json");
-    let listaProductosJS = await listaProductosJSON.json();
+    let listaProductosJSON = await fetch("productos.json")
+    let listaProductosJS = await listaProductosJSON.json()
 
-    listaProductosJS.forEach((producto) => {
-      let nuevoProducto = new Producto(
-        producto.id,
-        producto.nombre,
-        producto.precio,
-        producto.descripcion,
-        producto.img,
-        producto.alt,
-        producto.cantidad
-      );
-      this.agregar(nuevoProducto);
-    });
+    listaProductosJS.forEach(producto => {
+        let nuevoProducto = new Producto(producto.id, producto.nombre, producto.precio, producto.descripcion, producto.img, producto.alt, producto.cantidad)
+        this.agregar(nuevoProducto)
+    })
 
-    this.mostrarEnDOM();
-  }
+    this.mostrarEnDOM()
+}
 
   mostrarToastify() {
     Toastify({
@@ -161,22 +153,23 @@ class Carrito {
 
   recuperarStorage() {
     let listaCarritoJSON = localStorage.getItem(this.localStorageKey);
-    let listaCarritoJS = JSON.parse(listaCarritoJSON);
-    let listaAux = [];
-    listaCarritoJS.forEach((producto) => {
-      let nuevoProducto = new Producto(
-        producto.id,
-        producto.nombre,
-        producto.precio,
-        producto.descripcion,
-        producto.img,
-        producto.alt,
-        producto.cantidad
-      );
-      listaAux.push(nuevoProducto);
-    });
-    this.listaCarrito = listaAux;
-  }
+
+    if (listaCarritoJSON) {
+        let listaCarritoJS = JSON.parse(listaCarritoJSON);
+        let listaAux = [];
+        
+        listaCarritoJS.forEach(producto => {
+            let nuevoProducto = new Producto(producto.id, producto.nombre, producto.precio, producto.descripcion, producto.img, producto.alt, producto.cantidad);
+            listaAux.push(nuevoProducto);
+        });
+        
+        this.listaCarrito = listaAux;
+    } else {
+        this.listaCarrito = [];
+    }
+}
+
+
 
   mostrarEnDOM() {
     let contenedor_carrito = document.getElementById("contenedor_carrito");
