@@ -34,5 +34,14 @@
     "cantidad": 1,
     "img": "https://www.roemmers.com.ar/sites/default/files/F_000001119104.png",
     "alt": "frenaler cort"
+},
+{
+    "id": 4,
+    "nombre": "frenaler cort",
+    "precio": 40,
+    "descripcion": "producto para estados alergicos severos",
+    "cantidad": 1,
+    "img": "https://www.roemmers.com.ar/sites/default/files/F_000001119104.png",
+    "alt": "frenaler cort"
 }
 ]
