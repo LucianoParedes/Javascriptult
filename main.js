@@ -70,7 +70,7 @@ class ProductoController {
   }
 
   async preparar_contenedor_productos() {
-    let listaProductosJSON = await fetch("productos.json")
+    let listaProductosJSON = await fetch("./productos.Json")
     let listaProductosJS = await listaProductosJSON.json()
 
     listaProductosJS.forEach(producto => {
